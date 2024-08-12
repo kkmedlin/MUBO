@@ -191,7 +191,8 @@ for (i,element) in enumerate(array):
         plt.rc('lines', linewidth=7)
         plt.rcParams['xtick.labelsize']=22
         plt.rcParams['ytick.labelsize']=22
-        fig, axes = plt.subplots(3, 1, figsize=(9, 15))
+        
+        fig, axes = plt.subplots(2, 1, figsize=(9, 15))
         plt.subplots_adjust(hspace=0.4)
         axes = axes.flatten()
         for i in range(n_runs):
@@ -214,13 +215,13 @@ for (i,element) in enumerate(array):
         plt.grid()
         fig.suptitle(str(title[0]), fontsize=21)
         axes[1].set_xlabel('Accepted Steps', fontsize=22)
-        plt.savefig(str(title[0])+"_resultsFromOptimalTrainingSetOnly.png", dpi='figure', metadata=None,
+        plt.savefig(str(title[0])+"_resultsFromOptimalTrainingSet.png", dpi='figure', metadata=None,
                 bbox_inches=None, pad_inches=0.1,
                 facecolor='auto', edgecolor='auto',
                 backend=None )
         plt.close()
         
-        fig, axes = plt.subplots(3, 1, figsize=(9, 15))
+        fig, axes = plt.subplots(2, 1, figsize=(9, 15))
         plt.subplots_adjust(hspace=0.4)
         axes = axes.flatten()
         for i in range(n_runs):
@@ -243,7 +244,7 @@ for (i,element) in enumerate(array):
         plt.grid()
         fig.suptitle(str(title[0]), fontsize=21)
         axes[1].set_xlabel('All Steps', fontsize=22)
-        plt.savefig(str(title[0])+"_metricsFromAllAlgoSteps.png", dpi='figure', metadata=None,
+        plt.savefig(str(title[0])+"_metricsFromAllSteps.png", dpi='figure', metadata=None,
                 bbox_inches=None, pad_inches=0.1,
                 facecolor='auto', edgecolor='auto',
                 backend=None )
