@@ -6,20 +6,20 @@ import numpy as np
 import pandas as pd
 import torch
 
-#from data import pytorch_prep, create_imbalanced_samplers, Gisette, connect4, abalone, shuttle, spamBase
+from data import pytorch_prep, create_imbalanced_samplers, Gisette, connect4, abalone, shuttle, spamBase
 from smallData import pytorch_prep, create_imbalanced_samplers, smoteGANdata
 from mubo import MUBO
 
 array = [  
-        #Gisette(),
+        Gisette(),
         #abalone(),
         #shuttle(),
         #spamBase(),
         #connect4()
-        smoteGANdata()  #option: 0 for Pageblocks, 1 for Ecoli, 2 for Poker, 3 for Wine, 4 for yeast, 5 for abalone, 6 for ionosphere, 7 for spambase
+        #smoteGANdata()  #option: 0 for Pageblocks, 1 for Ecoli, 2 for Poker, 3 for Wine, 4 for yeast, 5 for abalone, 6 for ionosphere, 7 for spambase
 ]
 
-title = [ 'Ionosphere' ]
+title = [ 'test' ]
  
 for (i,element) in enumerate(array):        
         #setting up train/test data for classification
@@ -31,7 +31,7 @@ for (i,element) in enumerate(array):
         M = len(majority_train_data_tensor)
         m = len(minority_train_data_tensor)
         #setting up num_runs and num_steps 
-        n_runs = 5
+        n_runs = 3
         n_steps = 100
         n_metrics=6
         #setting up vectors/matrices for storing classification results
