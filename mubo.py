@@ -48,9 +48,6 @@ def burnIn(model, Majority_data_training, Minority_data_training, X_state_test, 
         dataset = Our_Dataset(X_state,y_label)
         dataloader = DataLoader(dataset, batch_size=bs, shuffle=True)  
         burnIn_norm2Gradient = model.fit(dataloader)  
-        #print("X_state_MAJ after burnIn fit:",len(X_state_MAJ))
-        #print("X_state_MIN after burnIn fit:",len(X_state_MIN))
-        #print("X_state after burnIn fit:",len(X_state))
     return burnIn_norm2Gradient, combined_burnIn_sample, combined_burnIn_MAJ, y_label_MAJ, X_state_MAJ, y_label_MIN, X_state_MIN
     
 def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_test, y_label_test, X_state_testMAJ, y_label_testMAJ, X_state_testMIN, y_label_testMIN, n_points=16):
@@ -105,7 +102,7 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
     tMinusOne_loss_MAJ_sum = abs(tMinusOne_loss_MAJ).float().sum().detach().numpy()
     tMinusOne_loss_MAJ_mean = abs((1/len(combined_tMinusOne_X))*tMinusOne_loss_MAJ).float().sum().detach().numpy()
     tMinusOne_loss_MIN_mean = abs((1/len(combined_tMinusOne_X))*tMinusOne_loss_MIN).float().sum().detach().numpy()
-    burnIn_accuracy = model.accuracy(X_state_test, y_label_test)   # accuracy results of TEST data from current model trained on next sample ONLY=
+    burnIn_accuracy = model.accuracy(X_state_test, y_label_test)   
     burnIn_effOne = model.effOne(X_state_test, y_label_test)     
     stepTMinusOne_effOne = burnIn_effOne
     G_tMinusOne = tMinusOne_loss_MIN_mean
@@ -141,7 +138,6 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
         # under sample majority data randomly
         majority_sample = Majority_data_training[torch.randint(len(Majority_data_training), (M_t,))]
         minority_sample = Minority_data_training
-        # MAJ and MIN loss ratios
         stepT_X_MAJ = majority_sample[...,:,0:-1]
         stepT_y_MAJ = majority_sample[...,:,-1].long()
         stepT_X_MIN = minority_sample[...,:,0:-1]
@@ -164,14 +160,14 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
         combined_stepT_X = torch.cat( [combined_stepT_X_MAJ, combined_stepT_X_MIN], 0 )
         combined_stepT_Y = torch.cat( [combined_stepT_y_MAJ, combined_stepT_y_MIN], 0 )
         # separate features from labels
-        y_label = combined_stepT_sample[...,:,-1].long()  # combined_plusone_sample 
-        X_state = combined_stepT_sample[...,:,0:-1]    # combined_plusone_sample 
+        y_label = combined_stepT_sample[...,:,-1].long()  
+        X_state = combined_stepT_sample[...,:,0:-1]    
         #initiate the model for inner loop step
         bs = 32 
         dataset = Our_Dataset(X_state,y_label)
-        dataloader = DataLoader(dataset, batch_size=bs, shuffle=True)  #batch_size = 32?   
+        dataloader = DataLoader(dataset, batch_size=bs, shuffle=True)  
         norm2Gradient = model.fit(dataloader)   ##############  Inner-loop ##################
-        stepT_accuracy = model.accuracy(X_state_test, y_label_test)   # accuracy results of test data from current model trained on next sample ONLY=
+        stepT_accuracy = model.accuracy(X_state_test, y_label_test)   
         stepT_effOne = model.effOne(X_state_test, y_label_test)     
         stepT_loss = model.loss(combined_stepT_X, combined_stepT_Y)
         stepT_MAJ_loss = stepT_loss[ :len(combined_stepT_X_MAJ)]
@@ -223,7 +219,7 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
             tMinusOne_loss_MAJ_sum = stepT_MAJ_loss_sum
             tMinusOne_loss_MAJ_mean = stepT_MAJ_loss_mean
             tMinusOne_loss_MIN_mean = stepT_MIN_loss_mean
-            index_accepted_steps.append(i)          #index of accepted steps
+            index_accepted_steps.append(i)         
             
             #TRAINING data metrics
             accepted_fT.append(F_t)
@@ -235,11 +231,10 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
             accepted_minSampleSize.append(len(combined_stepT_X_MIN))
             accepted_accuracy.append(stepT_accuracy) 
             accepted_f1.append(stepT_effOne)
-            accepted_precision_testData = model.precision(X_state_test,y_label_test)  #accepted precision with TEST data
+            accepted_precision_testData = model.precision(X_state_test,y_label_test)  
             accepted_precision.append(accepted_precision_testData)
-            accepted_areaUnder_testData = model.areaUnder(X_state_test,y_label_test)  #accepted areaUnder with TEST data
-            accepted_areaUnder.append(accepted_areaUnder_testData)
-            model.classReport(X_state_test,y_label_test)  
+            accepted_areaUnder_testData = model.areaUnder(X_state_test,y_label_test)  
+            accepted_areaUnder.append(accepted_areaUnder_testData)  
     #capture accepted TRAIN data - combined sample
     #convert tensor to numpy nd array to pass over to main
     markov_chain = combined_tMinusOne_sample.numpy()

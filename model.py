@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch import nn
 from torch import optim
 import torch.nn.functional as F
-from sklearn.metrics import f1_score, precision_score, recall_score, roc_auc_score, matthews_corrcoef, classification_report
+from sklearn.metrics import f1_score, precision_score, recall_score, roc_auc_score, matthews_corrcoef
 import numpy as np
 import math
 
@@ -41,9 +41,6 @@ class Basic_DNN(nn.Module):
         accuracy = ( (yhat == yb).float().mean())
         MCC = matthews_corrcoef(yb, yhat)
         return accuracy, F1_score_2, precision_2, recall_2, auc, MCC
-    
-    def classReport(self, xb, yb):
-        yhat = self.predict(xb.to(device)).detach().cpu()
     
     def accuracy(self, xb, yb):
         yhat = self.predict(xb.to(device)).detach().cpu()
