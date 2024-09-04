@@ -6,14 +6,13 @@ import numpy as np
 import pandas as pd
 import torch
 
-from data import pytorch_prep, create_imbalanced_samplers, Gisette, connect4, abalone, shuttle, spamBase
+from data import pytorch_prep, create_imbalanced_samplers, Gisette, connect4, abalone, spamBase
 from smallData import pytorch_prep, create_imbalanced_samplers, smoteGANdata
 from mubo import MUBO
 
 array = [  
         Gisette(),
         #abalone(),
-        #shuttle(),
         #spamBase(),
         #connect4()
         #smoteGANdata()  #option: 0 for Pageblocks, 1 for Ecoli, 2 for Poker, 3 for Wine, 4 for yeast, 5 for abalone, 6 for ionosphere, 7 for spambase
