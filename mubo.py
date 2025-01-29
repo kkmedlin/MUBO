@@ -104,10 +104,10 @@ def MUBO(Majority_data_training, Minority_data_training, No_of_steps, X_state_te
     tMinusOne_loss_MIN_mean = abs((1/len(combined_tMinusOne_X))*tMinusOne_loss_MIN).float().sum().detach().numpy()
     burnIn_accuracy = model.accuracy(X_state_test, y_label_test)   
     burnIn_effOne = model.effOne(X_state_test, y_label_test)     
-    stepTMinusOne_effOne = burnIn_effOne
+    #stepTMinusOne_effOne = burnIn_effOne
     G_tMinusOne = tMinusOne_loss_MIN_mean
     F_tMinusOne = tMinusOne_loss_MAJ_mean
-    burnIn_G_tMinusOne = G_tMinusOne
+    #burnIn_G_tMinusOne = G_tMinusOne
     burnIn_F_tMinusOne = F_tMinusOne
     # initiate vectors for outputs
     index_all_steps.append(0)
