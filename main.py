@@ -30,8 +30,8 @@ for (i,element) in enumerate(array):
         M = len(majority_train_data_tensor)
         m = len(minority_train_data_tensor)
         #setting up num_runs and num_steps 
-        n_runs = 3
-        n_steps = 100
+        n_runs = 2
+        n_steps = 5
         n_metrics=6
         #setting up vectors/matrices for storing classification results
         markovChain = []
