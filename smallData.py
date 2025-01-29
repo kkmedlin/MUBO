@@ -14,7 +14,6 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV
 from sklearn.utils import compute_class_weight
-#from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error
 
 #Load in Data
