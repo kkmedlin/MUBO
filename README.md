@@ -1,4 +1,7 @@
-# MUBO
+# MUBO (Majority Undersampling with Bilevel Optimization)
+# MUBO is a bilevel optimization-powered sampling approach developed to mitigate model bias caused by imbalanced training data. By inserting a bilevel optimization framework into a ML algorithm, we give it not one, but two optimization steps -- one for classic ML learning that finds optimal model parameters and the second for finding optimal training data. 
+# The paper introducing MUBO was accepted for presentation at the International Joint Conference on Neural Networks (IJCNN 2025). It's pre-print, "A Bilevel Optimization Framework for Imbalanced Data Classification," can be found here: https://arxiv.org/pdf/2410.11171.
+
 Five code files:
 1. main - Before launching the main file, choose the dataset, title, number of runs, and number of steps. 
 2. mubo - Before running MUBO, choose either the data (for Gisette, Abalone, Spambase, Connect4) or smallData (for Ionosphere) file.
